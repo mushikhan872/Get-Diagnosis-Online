@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Your Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+        }
+        .actions {
+            display: flex;
+            justify-content: space-between;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button.validate {
+            background-color: #28a745;
+            color: #fff;
+        }
+        button.reject {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Review Your Data</h1>
+        <p>Please review the information you provided and confirm its accuracy.</p>
+        <table id="dataTable">
+            <!-- Data will be populated here by JavaScript -->
+        </table>
+        <div class="actions">
+            <button class="validate" onclick="validateData()">Validate Data</button>
+            <button class="reject" onclick="rejectData()">Reject Data</button>
+        </div>
+    </div>
+
+    <script>
+        // Retrieve data from the URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const formData = {};
+
+        // Populate the formData object with URL parameters
+        urlParams.forEach((value, key) => {
+            formData[key] = value;
+        });
+
+        // Display the data in the table
+        const table = document.getElementById('dataTable');
+        for (const key in formData) {
+            const row = table.insertRow();
+            const cell1 = row.insertCell(0);
+            const cell2 = row.insertCell(1);
+            cell1.textContent = key.replace(/([A-Z])/g, ' $1').toUpperCase(); // Format key for display
+            cell2.textContent = formData[key];
+        }
+
+        // Function to handle data validation
+        function validateData() {
+            alert('Data validated! Proceeding to analysis...');
+            // Redirect to the next step (e.g., analysis page)
+            window.location.href = 'analysis.html'; // Replace with your next page
+        }
+
+        // Function to handle data rejection
+        function rejectData() {
+            alert('Data rejected! Please go back and correct your inputs.');
+            window.location.href = 'index.html'; // Redirect back to the form page
+        }
+    </script>
+</body>
+</html>
